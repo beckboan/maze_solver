@@ -24,3 +24,17 @@ class Cell:
         if self.walls[3] == 1:
             line = Line(Point(p1.x, p2.y), p1)
             self._win.draw_line(line)
+
+    def draw_move(self, to_cell, undo=False):
+        line_color = "gray"
+        if not undo:
+            line_color = "red"
+
+        center1 = Point((self._p1.x + self._p2.x)//2,
+                        (self._p1.y + self._p2.y)//2)
+
+        center2 = Point((to_cell._p1.x + to_cell._p2.x)//2,
+                        (to_cell._p1.y + to_cell._p2.y)//2)
+
+        line = Line(center1, center2)
+        self._win.draw_line(line, line_color)
