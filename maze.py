@@ -6,7 +6,7 @@ import time
 class Maze:
     def __init__(self, sp, rows, cols, size_x, size_y, win=None):
         # Check for Exceptions first
-        if type(sp) is not Point or (sp.x or sp.y < 0):
+        if (type(sp) is not Point) or (sp.x < 0 or sp.y < 0):
             raise Exception(
                 "Starting point must be of the Point Class and at least (0,0)")
 
@@ -21,6 +21,7 @@ class Maze:
         self._win = win
         self._cells = []
         self._create_cells()
+        self._open_start_end()
 
     def _create_cells(self):
         self._cells = [[Cell(self._win) for i in range(self.rows)]
@@ -38,6 +39,12 @@ class Maze:
         self._cells[i][j].draw(Point(x1, y1),
                                Point(x1 + self.size_x, y1 + self.size_y))
         self._animate()
+
+    def _open_start_end(self):
+        self._cells[0][0].walls[0] = 0
+        self._draw_cell(0, 0)
+        self._cells[self.cols-1][self.rows-1].walls[2] = 0
+        self._draw_cell(self.cols-1, self.rows-1)
 
     def _animate(self):
         if self._win is None:

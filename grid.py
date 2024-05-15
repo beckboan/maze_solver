@@ -12,18 +12,30 @@ class Cell:
     def draw(self, p1, p2):
         self._p1 = p1
         self._p2 = p2
+        line1 = Line(p1, Point(p2.x, p1.y))
+        line2 = Line(Point(p2.x, p1.y), p2)
+        line3 = Line(p2, Point(p1.x, p2.y))
+        line4 = Line(Point(p1.x, p2.y), p1)
+
         if self.walls[0] == 1:
-            line = Line(p1, Point(p2.x, p1.y))
-            self._win.draw_line(line)
+            self._win.draw_line(line1)
+        else:
+            self._win.draw_line(line1, "white")
+
         if self.walls[1] == 1:
-            line = Line(Point(p2.x, p1.y), p2)
-            self._win.draw_line(line)
+            self._win.draw_line(line2)
+        else:
+            self._win.draw_line(line2, "white")
+
         if self.walls[2] == 1:
-            line = Line(p2, Point(p1.x, p2.y))
-            self._win.draw_line(line)
+            self._win.draw_line(line3)
+        else:
+            self._win.draw_line(line3, "white")
+
         if self.walls[3] == 1:
-            line = Line(Point(p1.x, p2.y), p1)
-            self._win.draw_line(line)
+            self._win.draw_line(line4)
+        else:
+            self._win.draw_line(line4, "white")
 
     def draw_move(self, to_cell, undo=False):
         line_color = "gray"
