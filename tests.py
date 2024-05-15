@@ -29,6 +29,14 @@ class Tests(unittest.TestCase):
 
         self.assertRaises(Exception, Maze, 255, 10, 10, 10, 10)
 
+    def test_maze_opening(self):
+        cols = 10
+        rows = 10
+
+        m = Maze(Point(0, 0), rows, cols, 10, 10)
+        self.assertEqual(m._cells[0][0].walls[0], 0)
+        self.assertEqual(m._cells[cols-1][rows-1].walls[2], 0)
+
 
 if __name__ == "__main__":
     unittest.main()
