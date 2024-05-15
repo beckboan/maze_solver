@@ -8,6 +8,7 @@ class Cell:
         self._p2 = None
         self.walls = [1, 1, 1, 1]  # Wall presence (starting top, going CW)
         self._win = win
+        self._visited = False
 
     def draw(self, p1, p2):
         self._p1 = p1
