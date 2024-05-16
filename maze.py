@@ -5,16 +5,21 @@ import random
 
 
 class Maze:
-    def __init__(self, sp, rows, cols, size_x, size_y, win=None, seed=None):
+    def __init__(self, rows, cols, size_x, size_y, win=None, seed=None):
         # Check for Exceptions first
-        if (type(sp) is not Point) or (sp.x < 0 or sp.y < 0):
-            raise Exception(
-                "Starting point must be of the Point Class and at least (0,0)")
 
         if rows < 1 or cols < 1:
             raise ValueError("Rows and Columns must be greater than 0")
 
-        self.sp = sp
+        self.sp = 0
+        if win is None:
+            self.sp = Point(0, 0)
+        else:
+            total_width = cols * size_x
+            total_height = rows * size_y
+            self.sp = Point((win._width - total_width)/2,
+                            (win._height - total_height)/2)
+
         self.rows = rows
         self.cols = cols
         self.size_x = size_x

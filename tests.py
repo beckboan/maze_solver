@@ -9,7 +9,7 @@ class Tests(unittest.TestCase):
         cols = 10
         rows = 10
 
-        m = Maze(Point(0, 0), rows, cols, 10, 10)
+        m = Maze(rows, cols, 10, 10)
         self.assertEqual(len(m._cells), cols)
         self.assertEqual(len(m._cells[0]), rows)
 
@@ -17,23 +17,19 @@ class Tests(unittest.TestCase):
         cols = 0
         rows = 10
 
-        self.assertRaises(ValueError, Maze, Point(0, 0), rows, cols, 10, 10)
+        self.assertRaises(ValueError, Maze, rows, cols, 10, 10)
 
     def test_no_row(self):
         cols = 10
         rows = 0
 
-        self.assertRaises(ValueError, Maze, Point(0, 0), rows, cols, 10, 10)
-
-    def test_invalid_sp(self):
-
-        self.assertRaises(Exception, Maze, 255, 10, 10, 10, 10)
+        self.assertRaises(ValueError, Maze, rows, cols, 10, 10)
 
     def test_maze_opening(self):
         cols = 10
         rows = 10
 
-        m = Maze(Point(0, 0), rows, cols, 10, 10)
+        m = Maze(rows, cols, 10, 10)
         self.assertEqual(m._cells[0][0].walls[0], 0)
         self.assertEqual(m._cells[cols-1][rows-1].walls[2], 0)
 

@@ -8,6 +8,8 @@ class Window:
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
         # self.__root.geometry()
 
+        self._height = height
+        self._width = width
         self.__canvas = Canvas(self.__root, bg="white",
                                height=height, width=width)
         self.__canvas.pack(fill=BOTH, expand=1)
