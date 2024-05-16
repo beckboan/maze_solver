@@ -21,7 +21,7 @@ class Maze:
         self.size_y = size_y
         self._win = win
         self._cells = []
-        self._animate_time = 0.1
+        self._animate_time = 0.01
 
         if seed:
             random.seed(seed)
@@ -108,5 +108,40 @@ class Maze:
 
     def _solve_r(self, i, j):
         self._animate()
+        # print("NEW \n")
+
+        cur_cell = self._cells[i][j]
+        cur_cell._visited = True
+
+        if i == self.rows - 1 and j == self.cols - 1:
+            return True
+
+        # Find possible cells
+        directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+        possible_cells = []
+
+        for x in range(0, len(cur_cell.walls)):
+            dir = cur_cell.walls[x]
+            # print(f"Wall Num {x} - Direction {dir}")
+            if dir == 0:
+                ni = i + directions[x][0]
+                nj = j + directions[x][1]
+
+                # print(f"New Coords ni = {ni}, nj = {nj}")
+                if 0 <= ni < self.rows and 0 <= nj < self.cols and not self._cells[ni][nj]._visited:
+                    possible_cells.append((ni, nj))
+
+        if not possible_cells:
+            return False
+
+        for ni, nj in possible_cells:
+            self._cells[i][j].draw_move(self._cells[ni][nj])
+            if self._solve_r(ni, nj):
+                return True
+            else:
+                self._cells[i][j].draw_move(self._cells[ni][nj], True)
 
         return False
+
+    def solve(self):
+        return self._solve_r(0, 0)
